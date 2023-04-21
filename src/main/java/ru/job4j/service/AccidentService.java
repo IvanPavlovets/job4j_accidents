@@ -1,21 +1,17 @@
 package ru.job4j.service;
 
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.model.Accident;
 import ru.job4j.repository.AccidentMem;
 
 import java.util.List;
 
-@Data
+@RequiredArgsConstructor
 @Service
 public class AccidentService {
 
     private final AccidentMem accidentMem;
-
-    public AccidentService(AccidentMem accidentMem) {
-        this.accidentMem = accidentMem;
-    }
 
     /**
      * Вернуть все значения хранилища
