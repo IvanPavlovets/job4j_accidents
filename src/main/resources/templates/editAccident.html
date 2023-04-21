@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
@@ -25,6 +25,7 @@
 <body>
 
 <div class="container">
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/index}">Accident</a>
@@ -39,37 +40,44 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/index}">Инциденты</a>
+                        <a class="nav-link" th:href="@{/index}">Инциденты </a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-primary btn-sm mt-1" th:href="@{/createAccident}">Добавить Инцидент</a>
-                    </li>
+                        /li>
                 </ul>
                 <span class="navbar-text">
-                         <div th:text="${user}"></div>
-                </span>
+            <div th:text="${user}"></div>
+          </span>
             </div>
         </div>
     </nav>
 
-        <table class="table table-hover mt-3">
-            <thead>
-            <tr>
-                <th scope="col">№</th>
-                <th scope="col">Название</th>
-                <th scope="col">Описание</th>
-                <th scope="col">Адрес</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="accident : ${accidents}">
-                <td th:text="${accident.id}"/>
-                <td th:text="${accident.name}"/>
-                <td th:text="${accident.text}"/>
-                <td th:text="${accident.address}"/>
-            </tr>
-            </tbody>
-        </table>
+    <div class="card mt-4" style="width: 70%">
+        <div class="card-header">
+            Редактировать инцидент
+        </div>
+        <div class="card-body">
+            <form th:action="@{/updateAccident}" method="POST" th:object="${editAccident}">
+                <div class="mb-2">
+                    <input type="hidden" name="id" value="0"/>
+                    <input type="hidden" name="id" th:field="*{id}"/>
+                    <label for="name">Имя</label>
+                    <input type="text" class="form-control mt-1" name="name" id="name" th:field="*{name}">
+                </div>
+                <div class="mb-2">
+                    <label for="text">Описание</label>
+                    <input type="text" textarea class="form-control mt-1" name="text" id="text" th:field="*{text}" rows="3"></textarea>
+                </div>
+                <div class="mb-2">
+                    <label for="address">Адрес происшествия</label>
+                    <input type="text" class="form-control mt-1" name="address" id="address" th:field="*{address}">
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Сохранить</button>
+                <a class="btn btn-danger mt-2" th:href="@{/index}" role="button">Отмена</a>
+            </form>
+        </div>
+    </div>
 
 </div>
 
