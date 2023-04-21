@@ -44,7 +44,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-primary btn-sm mt-1" th:href="@{/createAccident}">Добавить Инцидент</a>
-                        /li>
+                    </li>
                 </ul>
                 <span class="navbar-text">
             <div th:text="${user}"></div>
@@ -58,9 +58,8 @@
             Редактировать инцидент
         </div>
         <div class="card-body">
-            <form th:action="@{/updateAccident}" method="POST" th:object="${editAccident}">
+            <form th:action="@{/editAccident}" method="POST" th:object="${editableAccident}">
                 <div class="mb-2">
-                    <input type="hidden" name="id" value="0"/>
                     <input type="hidden" name="id" th:field="*{id}"/>
                     <label for="name">Имя</label>
                     <input type="text" class="form-control mt-1" name="name" id="name" th:field="*{name}">
