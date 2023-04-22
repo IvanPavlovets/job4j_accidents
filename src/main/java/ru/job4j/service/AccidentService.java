@@ -7,6 +7,12 @@ import ru.job4j.repository.AccidentMem;
 
 import java.util.List;
 
+/**
+ * AccidentService слой бизнесс логики
+ * модели Accident.
+ *
+ * @author Ivan Pavlovets
+ */
 @RequiredArgsConstructor
 @Service
 public class AccidentService {

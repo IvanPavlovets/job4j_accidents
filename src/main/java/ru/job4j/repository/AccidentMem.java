@@ -13,6 +13,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Хранилище обьектов совершеных правонорущений.
  * Весрия с хранением в памяти.
+ *
+ * @author Ivan Pavlovets
  */
 @Data
 @Repository

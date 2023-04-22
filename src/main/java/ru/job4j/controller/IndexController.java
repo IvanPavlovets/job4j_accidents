@@ -6,6 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.service.AccidentService;
 
+/**
+ * Контроллер стартовой страницы
+ *
+ * @author Ivan Pavlovets
+ */
 @RequiredArgsConstructor
 @Controller
 public class IndexController {

@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.model.Accident;
 import ru.job4j.service.AccidentService;
 
+/**
+ * Контроллер обрабатывает действия с моделью Accident
+ *
+ * @author Ivan Pavlovets
+ */
 @RequiredArgsConstructor
 @Controller
 public class AccidentController {
@@ -18,8 +23,10 @@ public class AccidentController {
 
     /**
      * Обрабатывает переход на createAccident.html
-     * @param model
-     * @return String
+     * @param model обёртка над классом HttpServletRequest.
+     *              Можно получить данные из запроса или
+     *              отправить данные в ответ.
+     * @return String представление createAccident
      */
     @GetMapping("/createAccident")
     public String viewCreateAccident(Model model) {
@@ -31,8 +38,8 @@ public class AccidentController {
     /**
      * Обрабатывает добавление данных в accident
      * и их сохранение в store.
-     * @param accident
-     * @return
+     * @param accident обьект правонарушения
+     * @return String перенаправляет на вид index
      */
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident) {
@@ -42,7 +49,8 @@ public class AccidentController {
 
     /**
      * Обработывает переход на editAccident.html
-     * @param id
+     * @param id редактируемого обьекта Accident,
+     *          передаеться через параметр запроса
      * @param model
      * @return String
      */

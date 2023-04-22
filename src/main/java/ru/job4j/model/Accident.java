@@ -6,7 +6,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * Модель данных - правонарушения.
+ * Модель данных описывающих правонарушение.
+ *
+ * @author Ivan Pavlovets
  */
 @Data
 @AllArgsConstructor
