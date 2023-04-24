@@ -16,18 +16,21 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author Ivan Pavlovets
  */
-@Data
 @Repository
 public class AccidentMem {
 
     private static final AtomicInteger ACCIDENT_ID = new AtomicInteger(4);
 
     private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
+    private final AccidentTypeMem types = new AccidentTypeMem();
 
     public AccidentMem() {
-        accidents.put(1, new Accident(1, "Fielder&Ipsum", "bumper", "turn to semaphornay street"));
-        accidents.put(2, new Accident(2, "Note&Kalina", "door damage", "Leningradsy prospect 59"));
-        accidents.put(3, new Accident(3, "BmwX5&Bus", "frontal collision", "Mira street 191"));
+        accidents.put(1, new Accident(1, "Fielder&Ipsum", "bumper",
+                "turn to semaphornay street", types.findById(1)));
+        accidents.put(2, new Accident(2, "Note&Kalina", "door damage",
+                "Leningradsy prospect 59", types.findById(2)));
+        accidents.put(3, new Accident(3, "BmwX5&Bus", "frontal collision",
+                "Mira street 191", types.findById(3)));
     }
 
     /**

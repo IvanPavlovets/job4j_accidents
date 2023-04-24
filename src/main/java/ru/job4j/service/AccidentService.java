@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.model.Accident;
 import ru.job4j.repository.AccidentMem;
+import ru.job4j.repository.AccidentTypeMem;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class AccidentService {
 
     private final AccidentMem accidentMem;
+    private final AccidentTypeMem typeMem;
 
     /**
      * Вернуть все значения хранилища
@@ -32,6 +34,10 @@ public class AccidentService {
      * @param accident
      */
     public void add(Accident accident) {
+        var type = typeMem.findById(
+                accident.getType().getId()
+        );
+        accident.setType(type);
         accidentMem.add(accident);
     }
 
@@ -49,6 +55,10 @@ public class AccidentService {
      * @param accident
      */
     public void update(Accident accident) {
+        var type = typeMem.findById(
+                accident.getType().getId()
+        );
+        accident.setType(type);
         accidentMem.update(accident);
     }
 

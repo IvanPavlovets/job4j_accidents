@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.model.Accident;
 import ru.job4j.service.AccidentService;
+import ru.job4j.service.AccidentTypeService;
 
 /**
  * Контроллер обрабатывает действия с моделью Accident
@@ -20,6 +21,7 @@ import ru.job4j.service.AccidentService;
 public class AccidentController {
 
     private final AccidentService service;
+    private final AccidentTypeService types;
 
     /**
      * Обрабатывает переход на createAccident.html
@@ -31,7 +33,7 @@ public class AccidentController {
     @GetMapping("/createAccident")
     public String viewCreateAccident(Model model) {
         model.addAttribute("user", "Ivan Pavlovets");
-        model.addAttribute("accident", new Accident());
+        model.addAttribute("types", types.findAll());
         return "createAccident";
     }
 
@@ -58,6 +60,7 @@ public class AccidentController {
     public String viewEditAccident(@RequestParam("id") int id, Model model) {
         model.addAttribute("user", "Ivan Pavlovets");
         model.addAttribute("editableAccident", service.findById(id));
+        model.addAttribute("types", types.findAll());
         return "editAccident";
     }
 

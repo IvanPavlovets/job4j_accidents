@@ -66,11 +66,20 @@
                 </div>
                 <div class="mb-2">
                     <label for="text">Описание</label>
-                    <input type="text" textarea class="form-control mt-1" name="text" id="text" th:field="*{text}" rows="3"></textarea>
+                    <input type="text" textarea class="form-control mt-1" rows="3" name="text" id="text" th:field="*{text}"></textarea>
                 </div>
                 <div class="mb-2">
                     <label for="address">Адрес происшествия</label>
                     <input type="text" class="form-control mt-1" name="address" id="address" th:field="*{address}">
+                </div>
+                <div class="mb-2">
+                    <label for="type.id">Тип</label>
+                    <select class="form-control mt-1" id="type.id" name="type.id" th:field="${editableAccident.type.id}">
+                        <option th:each="type: ${types}"
+                                th:value="${type.id}"
+                                th:text="${type.name}">
+                        </option>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">Сохранить</button>
                 <a class="btn btn-danger mt-2" th:href="@{/index}" role="button">Отмена</a>
