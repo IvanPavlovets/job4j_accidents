@@ -7,6 +7,7 @@ import ru.job4j.model.Accident;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -23,14 +24,18 @@ public class AccidentMem {
 
     private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
     private final AccidentTypeMem types = new AccidentTypeMem();
+    private final RuleMem rules = new RuleMem();
 
     public AccidentMem() {
         accidents.put(1, new Accident(1, "Fielder&Ipsum", "bumper",
-                "turn to semaphornay street", types.findById(1)));
+                "turn to semaphornay street", types.findById(1), Set.of(rules.findById(1)))
+        );
         accidents.put(2, new Accident(2, "Note&Kalina", "door damage",
-                "Leningradsy prospect 59", types.findById(2)));
+                "Leningradsy prospect 59", types.findById(2), Set.of(rules.findById(2), rules.findById(1)))
+        );
         accidents.put(3, new Accident(3, "BmwX5&Bus", "frontal collision",
-                "Mira street 191", types.findById(3)));
+                "Mira street 191", types.findById(3), Set.of(rules.findById(1), rules.findById(3)))
+        );
     }
 
     /**

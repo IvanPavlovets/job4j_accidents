@@ -81,6 +81,15 @@
                         </option>
                     </select>
                 </div>
+                <div class="mb-2">
+                    <label for="rIds">Тип</label>
+                    <select class="form-control mt-1" id="rIds" name="rIds" multiple="multiple">
+                        <option th:each="rule: ${rules}"
+                                th:value="${rule.id}"
+                                th:text="${rule.name}">
+                        </option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary mt-2">Сохранить</button>
                 <a class="btn btn-danger mt-2" th:href="@{/index}" role="button">Отмена</a>
 

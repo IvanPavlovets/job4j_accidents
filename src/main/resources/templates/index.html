@@ -71,6 +71,13 @@
                 <td th:text="${accident.text}"/>
                 <td th:text="${accident.address}"/>
                 <td th:text="${accident.type.name}"/>
+                <td>
+                    <div class="row" th:each="rule : ${accident.rules}">
+                        <div class="col">
+                            <small th:text="${rule.name}"></small>
+                        </div>
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>

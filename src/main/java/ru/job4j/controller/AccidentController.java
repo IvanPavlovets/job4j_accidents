@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.model.Accident;
 import ru.job4j.service.AccidentService;
 import ru.job4j.service.AccidentTypeService;
+import ru.job4j.service.RuleService;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Set;
 
 /**
  * Контроллер обрабатывает действия с моделью Accident
@@ -22,6 +26,7 @@ public class AccidentController {
 
     private final AccidentService service;
     private final AccidentTypeService types;
+    private final RuleService rules;
 
     /**
      * Обрабатывает переход на createAccident.html
@@ -34,6 +39,7 @@ public class AccidentController {
     public String viewCreateAccident(Model model) {
         model.addAttribute("user", "Ivan Pavlovets");
         model.addAttribute("types", types.findAll());
+        model.addAttribute("rules", rules.findAll());
         return "createAccident";
     }
 
@@ -44,8 +50,9 @@ public class AccidentController {
      * @return String перенаправляет на вид index
      */
     @PostMapping("/saveAccident")
-    public String save(@ModelAttribute Accident accident) {
-        service.add(accident);
+    public String save(@ModelAttribute Accident accident,
+                       @RequestParam(required = false) Set<Integer> rIds) {
+        service.add(accident, rIds);
         return "redirect:/index";
     }
 
@@ -61,6 +68,7 @@ public class AccidentController {
         model.addAttribute("user", "Ivan Pavlovets");
         model.addAttribute("editableAccident", service.findById(id));
         model.addAttribute("types", types.findAll());
+        model.addAttribute("rules", rules.findAll());
         return "editAccident";
     }
 
@@ -71,8 +79,9 @@ public class AccidentController {
      * @return String
      */
     @PostMapping("/editAccident")
-    public String update(@ModelAttribute Accident accident) {
-        service.update(accident);
+    public String update(@ModelAttribute Accident accident,
+                         @RequestParam(required = false) Set<Integer> rIds) {
+        service.update(accident, rIds);
         return "redirect:/index";
     }
 

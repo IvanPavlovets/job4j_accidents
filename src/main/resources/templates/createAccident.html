@@ -76,11 +76,19 @@
                      name="address" id="address" placeholder="Введите адрес">
             </div>
             <div class="mb-2">
-              <label for="address">Тип</label>
+              <label for="type.id">Тип</label>
               <select class="form-control mt-1" id="type.id" name="type.id">
                 <option th:each="type: ${types}"
                         th:value="${type.id}"
                         th:text="${type.name}"></option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <label for="rIds">Статья</label>
+              <select class="form-control mt-1" id="rIds" name="rIds" multiple="multiple">
+                <option th:each="rule: ${rules}"
+                        th:value="${rule.id}"
+                        th:text="${rule.name}"></option>
               </select>
             </div>
               <button type="submit" class="btn btn-primary mt-2">Сохранить</button>
