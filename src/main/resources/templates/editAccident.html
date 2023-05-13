@@ -90,9 +90,9 @@
                         </option>
                     </select>
                 </div>
+                <a class="btn btn-danger mt-2" th:href="@{|/delete?id=${editableAccident.id}|}">Удалить</a>
                 <button type="submit" class="btn btn-primary mt-2">Сохранить</button>
-                <a class="btn btn-danger mt-2" th:href="@{/index}" role="button">Отмена</a>
-
+                <a class="btn btn-primary mt-2" th:href="@{/index}" role="button">Отмена</a>
             </form>
         </div>
     </div>

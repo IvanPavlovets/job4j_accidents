@@ -1,9 +1,9 @@
-package ru.job4j.repository;
+package ru.job4j.memory;
 
 import org.junit.jupiter.api.Test;
 import ru.job4j.model.AccidentType;
+import ru.job4j.repository.memory.AccidentTypeMem;
 
-import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.job4j.service.AccidentService;
+import ru.job4j.service.jdbctemplate.AccidentJdbcTemplateService;
 
 /**
  * Контроллер стартовой страницы
@@ -15,7 +15,7 @@ import ru.job4j.service.AccidentService;
 @Controller
 public class IndexController {
 
-    private final AccidentService service;
+    private final AccidentJdbcTemplateService service;
 
     @GetMapping("/index")
     public String getIndex(Model model) {

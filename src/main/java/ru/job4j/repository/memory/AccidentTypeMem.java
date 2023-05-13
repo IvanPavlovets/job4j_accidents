@@ -1,9 +1,8 @@
-package ru.job4j.repository;
+package ru.job4j.repository.memory;
 
-import lombok.Data;
 import org.springframework.stereotype.Repository;
-import ru.job4j.model.Accident;
 import ru.job4j.model.AccidentType;
+import ru.job4j.repository.AccidentTypeRepository;
 
 import java.util.Collection;
 import java.util.Map;
@@ -18,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Ivan Pavlovets
  */
 @Repository
-public class AccidentTypeMem {
+public class AccidentTypeMem implements AccidentTypeRepository {
     private static final AtomicInteger ID = new AtomicInteger();
 
     private final Map<Integer, AccidentType> accidentTypes = new ConcurrentHashMap<>();

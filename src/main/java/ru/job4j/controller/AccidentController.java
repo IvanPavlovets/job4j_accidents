@@ -3,16 +3,15 @@ package ru.job4j.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.job4j.model.Accident;
-import ru.job4j.service.AccidentService;
-import ru.job4j.service.AccidentTypeService;
-import ru.job4j.service.RuleService;
+import ru.job4j.service.jdbctemplate.AccidentJdbcTemplateService;
+import ru.job4j.service.jdbctemplate.AccidentTypeJdbcTemplateService;
+import ru.job4j.service.jdbctemplate.RuleJdbcTemplateService;
+import ru.job4j.service.memory.AccidentMemService;
+import ru.job4j.service.memory.AccidentTypeMemService;
+import ru.job4j.service.memory.RuleMemService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
 
 /**
@@ -24,9 +23,9 @@ import java.util.Set;
 @Controller
 public class AccidentController {
 
-    private final AccidentService service;
-    private final AccidentTypeService types;
-    private final RuleService rules;
+    private final AccidentJdbcTemplateService service;
+    private final AccidentTypeJdbcTemplateService types;
+    private final RuleJdbcTemplateService rules;
 
     /**
      * Обрабатывает переход на createAccident.html
@@ -53,6 +52,12 @@ public class AccidentController {
     public String save(@ModelAttribute Accident accident,
                        @RequestParam(required = false) Set<Integer> rIds) {
         service.add(accident, rIds);
+        return "redirect:/index";
+    }
+
+    @GetMapping("/delete")
+    public String deleteAccident(@RequestParam("id") int id, Model model) {
+        service.delete(id);
         return "redirect:/index";
     }
 

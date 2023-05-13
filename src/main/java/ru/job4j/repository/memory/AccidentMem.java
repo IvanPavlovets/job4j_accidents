@@ -1,11 +1,10 @@
-package ru.job4j.repository;
+package ru.job4j.repository.memory;
 
-import lombok.Data;
 import org.springframework.stereotype.Repository;
 import ru.job4j.model.Accident;
+import ru.job4j.repository.AccidentRepository;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Ivan Pavlovets
  */
 @Repository
-public class AccidentMem {
+public class AccidentMem implements AccidentRepository {
 
     private static final AtomicInteger ACCIDENT_ID = new AtomicInteger(4);
 
@@ -68,6 +67,11 @@ public class AccidentMem {
      */
     public void update(Accident accident) {
         accidents.replace(accident.getId(), accident);
+    }
+
+    @Override
+    public void delete(int id) {
+        accidents.remove(id);
     }
 
 }

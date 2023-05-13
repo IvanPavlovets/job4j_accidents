@@ -1,8 +1,8 @@
-package ru.job4j.repository;
+package ru.job4j.repository.memory;
 
 import org.springframework.stereotype.Repository;
-import ru.job4j.model.AccidentType;
 import ru.job4j.model.Rule;
+import ru.job4j.repository.RuleRepository;
 
 import java.util.Collection;
 import java.util.Map;
@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Ivan Pavlovets
  */
 @Repository
-public class RuleMem {
+public class RuleMem implements RuleRepository {
     private static final AtomicInteger ID = new AtomicInteger();
     private final Map<Integer, Rule> rules = new ConcurrentHashMap<>();
 

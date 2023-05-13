@@ -58,6 +58,22 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.6.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-dbcp2</artifactId>
+      <version>2.9.0</version>
+    </dependency>
 
     <dependency>
       <groupId>org.hamcrest</groupId>
@@ -106,6 +122,24 @@
     <plugins>
 
       <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <version>4.16.1</version>
+        <configuration>
+          <propertyFile>${liquibase.config}</propertyFile>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>clearCheckSums</goal>
+              <goal>update</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
@@ -141,7 +175,6 @@
             <phase>validate</phase>
             <configuration>
               <configLocation>checkstyle.xml</configLocation>
-              <encoding>UTF-8</encoding>
               <consoleOutput>true</consoleOutput>
               <failsOnError>true</failsOnError>
               <includeTestSourceDirectory>true</includeTestSourceDirectory>
