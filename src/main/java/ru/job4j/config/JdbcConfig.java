@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 /**
+ * Класс конфигурации JdbcTemplate
  * JdbcConfig создает подключение и содержит пул соединений.
  * "@PropertySource" - аннотация говорит Spring считать файл.
  * "@Value" - получить настройки.

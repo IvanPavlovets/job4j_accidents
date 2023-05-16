@@ -3,14 +3,14 @@ package ru.job4j.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.model.Accident;
-import ru.job4j.service.jdbctemplate.AccidentJdbcTemplateService;
-import ru.job4j.service.jdbctemplate.AccidentTypeJdbcTemplateService;
-import ru.job4j.service.jdbctemplate.RuleJdbcTemplateService;
-import ru.job4j.service.memory.AccidentMemService;
-import ru.job4j.service.memory.AccidentTypeMemService;
-import ru.job4j.service.memory.RuleMemService;
+import ru.job4j.service.hibernate.AccidentHibernateService;
+import ru.job4j.service.hibernate.AccidentTypeHibernateService;
+import ru.job4j.service.hibernate.RuleHibernateService;
 
 import java.util.Set;
 
@@ -23,9 +23,9 @@ import java.util.Set;
 @Controller
 public class AccidentController {
 
-    private final AccidentJdbcTemplateService service;
-    private final AccidentTypeJdbcTemplateService types;
-    private final RuleJdbcTemplateService rules;
+    private final AccidentHibernateService service;
+    private final AccidentTypeHibernateService types;
+    private final RuleHibernateService rules;
 
     /**
      * Обрабатывает переход на createAccident.html
@@ -56,7 +56,7 @@ public class AccidentController {
     }
 
     @GetMapping("/delete")
-    public String deleteAccident(@RequestParam("id") int id, Model model) {
+    public String deleteAccident(@RequestParam("id") int id) {
         service.delete(id);
         return "redirect:/index";
     }
