@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.model.Accident;
-import ru.job4j.service.hibernate.AccidentHibernateService;
-import ru.job4j.service.hibernate.AccidentTypeHibernateService;
-import ru.job4j.service.hibernate.RuleHibernateService;
+import ru.job4j.service.springdata.AccidentSpringDataService;
+import ru.job4j.service.springdata.AccidentTypeSpringDataService;
+import ru.job4j.service.springdata.RuleSpringDataService;
 
 import java.util.Set;
 
@@ -23,9 +23,9 @@ import java.util.Set;
 @Controller
 public class AccidentController {
 
-    private final AccidentHibernateService service;
-    private final AccidentTypeHibernateService types;
-    private final RuleHibernateService rules;
+    private final AccidentSpringDataService service;
+    private final AccidentTypeSpringDataService types;
+    private final RuleSpringDataService rules;
 
     /**
      * Обрабатывает переход на createAccident.html

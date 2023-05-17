@@ -32,11 +32,11 @@ public class Accident {
     @Column(name = "address")
     private String address;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "type_id", foreignKey = @ForeignKey(name = "TYPE_ID_FK"))
     private AccidentType type;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "accident_rule", joinColumns = {
             @JoinColumn(name = "accident_id", nullable = false, updatable = false)},
             inverseJoinColumns = {

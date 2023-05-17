@@ -1,47 +1,49 @@
-package ru.job4j.service.hibernate;
+package ru.job4j.service.springdata;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.model.Accident;
 import ru.job4j.model.Rule;
-import ru.job4j.repository.hibernate.AccidentHibernate;
-import ru.job4j.repository.hibernate.AccidentTypeHibernate;
-import ru.job4j.repository.hibernate.RuleHibernate;
+import ru.job4j.repository.springdata.AccidentSpringDataRepository;
+import ru.job4j.repository.springdata.RuleSpringDataRepository;
 import ru.job4j.service.AccidentService;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Реализация бизнесс логики c моделью Accident.
+ * версия с использование SpringDataJpa
+ */
 @Service
 @AllArgsConstructor
-public class AccidentHibernateService implements AccidentService {
-
-    private final AccidentHibernate hibernateRep;
-    private final RuleHibernate ruleHibernateRep;
+public class AccidentSpringDataService implements AccidentService {
+    private final AccidentSpringDataRepository accidentSpringDataRep;
+    private final RuleSpringDataRepository ruleSpringDataRep;
 
     @Override
     public Collection<Accident> findAll() {
-        return hibernateRep.findAll();
+        return (Collection<Accident>) accidentSpringDataRep.findAll();
     }
 
     @Override
     public Accident findById(int id) {
-        return hibernateRep.findById(id);
+        return accidentSpringDataRep.findById(id).get();
     }
 
     @Override
     public void add(Accident accident, Set<Integer> rIds) {
         Set<Rule> rules = getRulesByRIds(rIds);
         accident.setRules(rules);
-        hibernateRep.add(accident);
+        accidentSpringDataRep.save(accident);
     }
 
     private Set<Rule> getRulesByRIds(Set<Integer> rIds) {
         Set<Rule> rules = new HashSet<>();
         if (rIds != null) {
             for (Integer rId : rIds) {
-                Rule rule = ruleHibernateRep.findById(rId);
+                Rule rule = ruleSpringDataRep.findById(rId).get();
                 rules.add(rule);
             }
         }
@@ -50,13 +52,12 @@ public class AccidentHibernateService implements AccidentService {
 
     @Override
     public void update(Accident accident, Set<Integer> rIds) {
-        Set<Rule> rules = getRulesByRIds(rIds);
-        accident.setRules(rules);
-        hibernateRep.update(accident);
+        this.add(accident, rIds);
     }
 
     @Override
     public void delete(int id) {
-        hibernateRep.delete(id);
+        accidentSpringDataRep.deleteById(id);
     }
+
 }
