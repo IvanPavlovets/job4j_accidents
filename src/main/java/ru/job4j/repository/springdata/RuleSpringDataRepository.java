@@ -10,6 +10,6 @@ import ru.job4j.model.Rule;
  *  первый параметр - тип хранимых объектов
  *  второй параметр - тип идентификатара хранимого обьекта
  */
-public interface RuleSpringDataRepository extends CrudRepository<Rule, Integer>{
+public interface RuleSpringDataRepository extends CrudRepository<Rule, Integer> {
 
 }
