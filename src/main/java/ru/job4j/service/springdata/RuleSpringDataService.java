@@ -7,6 +7,7 @@ import ru.job4j.repository.springdata.RuleSpringDataRepository;
 import ru.job4j.service.RuleService;
 
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Реализация бизнесс логики c моделью Rule.
@@ -18,13 +19,13 @@ public class RuleSpringDataService implements RuleService {
     private final RuleSpringDataRepository ruleSpringDataRepository;
 
     @Override
-    public Collection<Rule> findAll() {
-        return (Collection<Rule>) ruleSpringDataRepository.findAll();
+    public Iterable<Rule> findAll() {
+        return ruleSpringDataRepository.findAll();
     }
 
     @Override
-    public Rule findById(int id) {
-        return ruleSpringDataRepository.findById(id).get();
+    public Optional<Rule> findById(int id) {
+        return ruleSpringDataRepository.findById(id);
     }
 
 }

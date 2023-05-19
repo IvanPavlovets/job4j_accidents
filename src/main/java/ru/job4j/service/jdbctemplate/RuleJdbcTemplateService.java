@@ -7,6 +7,7 @@ import ru.job4j.repository.jdbctemplate.RuleJdbcTemplate;
 import ru.job4j.service.RuleService;
 
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * RuleService слой бизнесс
@@ -27,7 +28,7 @@ public class RuleJdbcTemplateService implements RuleService {
     }
 
     @Override
-    public Rule findById(int id) {
-        return repository.findById(id);
+    public Optional<Rule> findById(int id) {
+        return Optional.ofNullable(repository.findById(id));
     }
 }

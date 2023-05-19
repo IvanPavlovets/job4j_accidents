@@ -7,6 +7,7 @@ import ru.job4j.repository.jdbctemplate.AccidentTypeJdbcTemplate;
 import ru.job4j.service.AccidentTypeService;
 
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * AccidentTypeService слой бизнесс
@@ -27,7 +28,7 @@ public class AccidentTypeJdbcTemplateService implements AccidentTypeService {
     }
 
     @Override
-    public AccidentType findById(int id) {
-        return repository.findById(id);
+    public Optional<AccidentType> findById(int id) {
+        return Optional.ofNullable(repository.findById(id));
     }
 }

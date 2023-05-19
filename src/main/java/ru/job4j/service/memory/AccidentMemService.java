@@ -11,6 +11,7 @@ import ru.job4j.service.AccidentService;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -31,6 +32,7 @@ public class AccidentMemService implements AccidentService {
      * Вернуть все значения хранилища
      * @return List<Accident>
      */
+    @Override
     public List<Accident> findAll() {
         return accidentMem.findAll().stream().toList();
     }
@@ -40,8 +42,10 @@ public class AccidentMemService implements AccidentService {
      *
      * @param accident
      * @param rIds
+     * @return Accident
      */
-    public void add(Accident accident, Set<Integer> rIds) {
+    @Override
+    public Accident add(Accident accident, Set<Integer> rIds) {
         var type = typeMem.findById(
                 accident.getType().getId()
         );
@@ -49,6 +53,7 @@ public class AccidentMemService implements AccidentService {
         accident.setRules(rules);
         accident.setType(type);
         accidentMem.add(accident);
+        return accident;
     }
 
     private Set<Rule> getRulesByRIds(Set<Integer> rIds) {
@@ -64,11 +69,13 @@ public class AccidentMemService implements AccidentService {
 
     /**
      * Найти по id Accident
+     *
      * @param id
      * @return Accident
      */
-    public Accident findById(int id) {
-        return accidentMem.findById(id);
+    @Override
+    public Optional<Accident> findById(int id) {
+        return Optional.ofNullable(accidentMem.findById(id));
     }
 
     /**
@@ -77,6 +84,7 @@ public class AccidentMemService implements AccidentService {
      * @param accident
      * @param rIds
      */
+    @Override
     public void update(Accident accident, Set<Integer> rIds) {
         var type = typeMem.findById(
                 accident.getType().getId()

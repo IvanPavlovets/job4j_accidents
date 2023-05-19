@@ -18,6 +18,6 @@ public class Rule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
-    @Column(name = "rule_name")
+    @Column(name = "rule_name", nullable = false, unique = true, updatable = false)
     private String name;
 }

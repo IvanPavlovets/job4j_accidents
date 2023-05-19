@@ -71,7 +71,7 @@ public class AccidentController {
     @GetMapping("/formEditAccident")
     public String viewEditAccident(@RequestParam("id") int id, Model model) {
         model.addAttribute("user", "Ivan Pavlovets");
-        model.addAttribute("editableAccident", service.findById(id));
+        model.addAttribute("editableAccident", service.findById(id).get());
         model.addAttribute("types", types.findAll());
         model.addAttribute("rules", rules.findAll());
         return "editAccident";

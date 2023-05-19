@@ -7,6 +7,7 @@ import ru.job4j.repository.memory.AccidentTypeMem;
 import ru.job4j.service.AccidentTypeService;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * AccidentTypeService слой бизнесс
@@ -24,8 +25,8 @@ public class AccidentTypeMemService implements AccidentTypeService {
         return typeMem.findAll().stream().toList();
     }
 
-    public AccidentType findById(int id) {
-        return typeMem.findById(id);
+    public Optional<AccidentType> findById(int id) {
+        return Optional.ofNullable(typeMem.findById(id));
     }
 
 }

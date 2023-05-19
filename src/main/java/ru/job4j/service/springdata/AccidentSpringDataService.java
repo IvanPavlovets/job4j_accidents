@@ -5,11 +5,10 @@ import org.springframework.stereotype.Service;
 import ru.job4j.model.Accident;
 import ru.job4j.model.Rule;
 import ru.job4j.repository.springdata.AccidentSpringDataRepository;
-import ru.job4j.repository.springdata.RuleSpringDataRepository;
 import ru.job4j.service.AccidentService;
 
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -20,34 +19,41 @@ import java.util.Set;
 @AllArgsConstructor
 public class AccidentSpringDataService implements AccidentService {
     private final AccidentSpringDataRepository accidentSpringDataRep;
-    private final RuleSpringDataRepository ruleSpringDataRep;
 
     @Override
-    public Collection<Accident> findAll() {
-        return (Collection<Accident>) accidentSpringDataRep.findAll();
+    public Iterable<Accident> findAll() {
+        return accidentSpringDataRep.findAll();
     }
 
     @Override
-    public Accident findById(int id) {
-        return accidentSpringDataRep.findById(id).get();
+    public Optional<Accident> findById(int id) {
+        return accidentSpringDataRep.findById(id);
     }
 
     @Override
-    public void add(Accident accident, Set<Integer> rIds) {
+    public Accident add(Accident accident, Set<Integer> rIds) {
         Set<Rule> rules = getRulesByRIds(rIds);
         accident.setRules(rules);
-        accidentSpringDataRep.save(accident);
+        return accidentSpringDataRep.save(accident);
     }
 
+    /**
+     * метод получения Set<Rule> по полученыму
+     * набору rIds. Передаем в БД Set<Rule>
+     * с пустыми полями, в свою очередь хранилище
+     * офильтрует обьекты, при условии:
+     * 1) ограничений связующей таблицы
+     * 2) аннатаций корневого и дочернего класов
+     * @param rIds Set<Integer>
+     * @return Set<Rule>
+     */
     private Set<Rule> getRulesByRIds(Set<Integer> rIds) {
-        Set<Rule> rules = new HashSet<>();
-        if (rIds != null) {
-            for (Integer rId : rIds) {
-                Rule rule = ruleSpringDataRep.findById(rId).get();
-                rules.add(rule);
-            }
+        Set<Rule> set = new HashSet<>();
+        for (Integer id : rIds) {
+            Rule rule = new Rule(id, null);
+            set.add(rule);
         }
-        return rules;
+        return set;
     }
 
     @Override

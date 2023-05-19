@@ -2,7 +2,7 @@ package ru.job4j.service;
 
 import ru.job4j.model.Accident;
 
-import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -10,11 +10,11 @@ import java.util.Set;
  * бизнесс логики модели Accident
  */
 public interface AccidentService {
-    Collection<Accident> findAll();
+    Iterable<Accident> findAll();
 
-    Accident findById(int id);
+    Optional<Accident> findById(int id);
 
-    void add(Accident accident, Set<Integer> rIds);
+    Accident add(Accident accident, Set<Integer> rIds);
 
     void update(Accident accident, Set<Integer> rIds);
 

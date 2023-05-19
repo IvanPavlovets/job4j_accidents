@@ -7,6 +7,7 @@ import ru.job4j.repository.hibernate.RuleHibernate;
 import ru.job4j.service.RuleService;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -20,8 +21,8 @@ public class RuleHibernateService implements RuleService {
     }
 
     @Override
-    public Rule findById(int id) {
-        return hibernateRep.findById(id);
+    public Optional<Rule> findById(int id) {
+        return Optional.ofNullable(hibernateRep.findById(id));
     }
 
 }

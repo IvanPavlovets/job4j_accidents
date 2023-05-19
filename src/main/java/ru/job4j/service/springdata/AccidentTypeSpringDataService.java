@@ -6,7 +6,7 @@ import ru.job4j.model.AccidentType;
 import ru.job4j.repository.springdata.AccidentTypeSpringDataRepository;
 import ru.job4j.service.AccidentTypeService;
 
-import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Реализация бизнесс логики c моделью AccidentType.
@@ -18,12 +18,12 @@ public class AccidentTypeSpringDataService implements AccidentTypeService {
     private final AccidentTypeSpringDataRepository typeSpringDataRepository;
 
     @Override
-    public Collection<AccidentType> findAll() {
-        return (Collection<AccidentType>) typeSpringDataRepository.findAll();
+    public Iterable<AccidentType> findAll() {
+        return typeSpringDataRepository.findAll();
     }
 
     @Override
-    public AccidentType findById(int id) {
-        return typeSpringDataRepository.findById(id).get();
+    public Optional<AccidentType> findById(int id) {
+        return typeSpringDataRepository.findById(id);
     }
 }

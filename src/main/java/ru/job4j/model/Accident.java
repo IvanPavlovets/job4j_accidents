@@ -37,10 +37,9 @@ public class Accident {
     private AccidentType type;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "accident_rule", joinColumns = {
-            @JoinColumn(name = "accident_id", nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "rule_id", nullable = false, updatable = false)})
+    @JoinTable(name = "accident_rule",
+            joinColumns = {@JoinColumn(name = "accident_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "rule_id", nullable = false, updatable = false)})
     private Set<Rule> rules = new HashSet<>();
 
     public void addRule(Rule rule) {

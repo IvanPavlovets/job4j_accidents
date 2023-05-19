@@ -7,6 +7,7 @@ import ru.job4j.repository.hibernate.AccidentTypeHibernate;
 import ru.job4j.service.AccidentTypeService;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -20,7 +21,7 @@ public class AccidentTypeHibernateService implements AccidentTypeService {
     }
 
     @Override
-    public AccidentType findById(int id) {
-        return hibernateRep.findById(id);
+    public Optional<AccidentType> findById(int id) {
+        return Optional.ofNullable(hibernateRep.findById(id));
     }
 }
