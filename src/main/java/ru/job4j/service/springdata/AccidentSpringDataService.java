@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import ru.job4j.model.Accident;
 import ru.job4j.model.Rule;
 import ru.job4j.repository.springdata.AccidentSpringDataRepository;
+import ru.job4j.repository.springdata.RuleSpringDataRepository;
 import ru.job4j.service.AccidentService;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -19,6 +21,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class AccidentSpringDataService implements AccidentService {
     private final AccidentSpringDataRepository accidentSpringDataRep;
+    private final RuleSpringDataRepository ruleSpringDataRep;
 
     @Override
     public Iterable<Accident> findAll() {
@@ -30,30 +33,22 @@ public class AccidentSpringDataService implements AccidentService {
         return accidentSpringDataRep.findById(id);
     }
 
+    /**
+     * метод вставки Accident.
+     * Дочерние обьекты rule получаем
+     * по набору rIds, с помощью "IN clause"
+     * реализованого в методе
+     * Iterable<T> findAllById(Iterable<ID> ids),
+     * из шаблона CRUD spring data репозиория.
+     * @param accident
+     * @param rIds
+     * @return
+     */
     @Override
     public Accident add(Accident accident, Set<Integer> rIds) {
-        Set<Rule> rules = getRulesByRIds(rIds);
+        Set<Rule> rules = new HashSet<>((Collection) ruleSpringDataRep.findAllById(rIds));
         accident.setRules(rules);
         return accidentSpringDataRep.save(accident);
-    }
-
-    /**
-     * метод получения Set<Rule> по полученыму
-     * набору rIds. Передаем в БД Set<Rule>
-     * с пустыми полями, в свою очередь хранилище
-     * офильтрует обьекты, при условии:
-     * 1) ограничений связующей таблицы
-     * 2) аннатаций корневого и дочернего класов
-     * @param rIds Set<Integer>
-     * @return Set<Rule>
-     */
-    private Set<Rule> getRulesByRIds(Set<Integer> rIds) {
-        Set<Rule> set = new HashSet<>();
-        for (Integer id : rIds) {
-            Rule rule = new Rule(id, null);
-            set.add(rule);
-        }
-        return set;
     }
 
     @Override
