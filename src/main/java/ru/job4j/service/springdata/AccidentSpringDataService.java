@@ -46,7 +46,7 @@ public class AccidentSpringDataService implements AccidentService {
      */
     @Override
     public Accident add(Accident accident, Set<Integer> rIds) {
-        Set<Rule> rules = new HashSet<>((Collection) ruleSpringDataRep.findAllById(rIds));
+        Set<Rule> rules = ruleSpringDataRep.findByIdIn(rIds);
         accident.setRules(rules);
         return accidentSpringDataRep.save(accident);
     }
