@@ -1,6 +1,7 @@
 package ru.job4j.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,10 @@ import java.util.Set;
 
 /**
  * Контроллер обрабатывает действия с моделью Accident
+ *
+ * После авторизации Spring создает объект SecurityContextHolder
+ * в котором держит информацию об авторизованном пользователе.
+ * По аналогии HttpSession в Servlet.
  *
  * @author Ivan Pavlovets
  */
@@ -36,7 +41,8 @@ public class AccidentController {
      */
     @GetMapping("/createAccident")
     public String viewCreateAccident(Model model) {
-        model.addAttribute("user", "Ivan Pavlovets");
+        model.addAttribute("user",
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("types", types.findAll());
         model.addAttribute("rules", rules.findAll());
         return "createAccident";
@@ -70,7 +76,8 @@ public class AccidentController {
      */
     @GetMapping("/formEditAccident")
     public String viewEditAccident(@RequestParam("id") int id, Model model) {
-        model.addAttribute("user", "Ivan Pavlovets");
+        model.addAttribute("user",
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("editableAccident", service.findById(id).get());
         model.addAttribute("types", types.findAll());
         model.addAttribute("rules", rules.findAll());

@@ -7,12 +7,15 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.sql.DataSource;
+
 /**
  * Базовый класс конфигурации безопасности.
- * Служба хранения пользователей в памяти:
+ * Служба хранения пользователей (через JDBC):
  * - configure(auth) - содержит описание, как искать пользователей.
  * Определеяем имя пользователя, пароль и роль(привелегии)
  * - configure(http) содержит описание доступов и конфигурирование
@@ -27,18 +30,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
+    private final DataSource ds;
 
+    /**
+     * Настройка авторизации через JDBC
+     * @param auth
+     * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder)
-                .withUser("user")
-                .password(passwordEncoder.encode("123456"))
-                .roles("USER")
-                .and()
-                .withUser("admin")
-                .password(passwordEncoder.encode("123456"))
-                .roles("USER", "ADMIN");
+        auth.jdbcAuthentication()
+                .dataSource(ds)
+                .withUser(User.withUsername("user")
+                        .password(passwordEncoder.encode("123"))
+                        .roles("USER"))
+                .withUser(User.withUsername("admin")
+                        .password(passwordEncoder.encode("123"))
+                        .roles("ADMIN"));
     }
 
     /**
