@@ -46,7 +46,12 @@
                     </li>
                 </ul>
                 <span class="navbar-text">
-                         <div th:text="${user}"></div>
+                         <div class="nav-link link-dark px-2">
+                            <a th:href="@{/logout}">
+                                <span th:text="${user}"></span>
+                                <span> | Выйти</span>
+                            </a>
+                        </div>
                 </span>
             </div>
         </div>
