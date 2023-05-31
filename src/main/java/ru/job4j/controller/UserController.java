@@ -1,8 +1,5 @@
 package ru.job4j.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.model.User;
 import ru.job4j.repository.springdata.AuthoritySpringDataRepository;
-import ru.job4j.repository.springdata.UserSpringDataRepository;
+import ru.job4j.service.springdata.UserSpringDataService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * контроллер занимаеться обработкой видов авторизации
@@ -23,7 +23,7 @@ import ru.job4j.repository.springdata.UserSpringDataRepository;
 public class UserController {
 
     private final PasswordEncoder encoder;
-    private final UserSpringDataRepository users;
+    private final UserSpringDataService users;
     private final AuthoritySpringDataRepository authorities;
 
     @GetMapping("/login")
@@ -73,7 +73,10 @@ public class UserController {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthority(role);
         user.setEnabled(true);
-        this.users.save(user);
+        var saved = this.users.save(user);
+        if (saved.isEmpty()) {
+            return "redirect:/registration?error=true";
+        }
         return "redirect:/login";
     }
 

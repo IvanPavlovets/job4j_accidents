@@ -6,6 +6,8 @@ import ru.job4j.model.User;
 import ru.job4j.repository.springdata.UserSpringDataRepository;
 import ru.job4j.service.UserService;
 
+import java.util.Optional;
+
 /**
  * Реализация бизнесс логики c моделью User.
  * версия с использование SpringDataJpa
@@ -16,7 +18,15 @@ public class UserSpringDataService implements UserService {
     private final UserSpringDataRepository usersRep;
 
     @Override
-    public User save(User user) {
-        return usersRep.save(user);
+    public Optional<User> save(User user) {
+        try {
+            usersRep.save(user);
+            return Optional.of(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
+
     }
+
 }
