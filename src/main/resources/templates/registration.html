@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
@@ -23,18 +23,18 @@
     <title>Car accidents</title>
 </head>
 <body>
-<div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="card shadow-2-strong" style="width: 60%">
+<div class="container">
+
+    <div class="row py-5 h-100">
+        <div class="card" style="width: 60%">
             <div class="card-header">
-                Авторизация
+                Регистрация
             </div>
             <div class="card-body">
                 <div th:if="${not #lists.isEmpty(errorMessage)}" class="alert alert-danger" role="alert">
                     <span th:text="${errorMessage}"></span>
                 </div>
-                <form th:action="@{/login}" method="POST">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <form th:action="@{/registration}" method="POST">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="username" id="username">
                         <label for="username">Логин</label>
@@ -43,8 +43,8 @@
                         <input type="password" class="form-control" name="password" id="password">
                         <label for="password">Пароль</label>
                     </div>
-                    <button type="submit" class="btn btn-primary">Авторизация</button>
-                    <a class="btn btn-light" th:href="@{/registration}" role="button">Регистрация</a>
+                    <button type="submit" class="btn btn-primary mt-3">Зарегистрировать</button>
+                    <a class="btn btn-danger mt-3" th:href="@{/login}" role="button">Отмена</a>
                 </form>
             </div>
         </div>
