@@ -22,7 +22,6 @@ public class UserSpringDataService implements UserService {
         Optional<User> rsl = Optional.empty();
         try {
             rsl = Optional.of(usersRep.save(user));
-            return rsl;
         } catch (Exception e) {
             e.printStackTrace();
         }
