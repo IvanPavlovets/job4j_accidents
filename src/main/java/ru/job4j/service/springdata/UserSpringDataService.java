@@ -25,10 +25,9 @@ public class UserSpringDataService implements UserService {
             return rsl;
         } catch (Exception e) {
             e.printStackTrace();
-            return rsl;
-
         }
-
+        return rsl;
     }
+
 
 }
