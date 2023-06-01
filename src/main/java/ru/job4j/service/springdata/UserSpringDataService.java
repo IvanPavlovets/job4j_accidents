@@ -19,12 +19,14 @@ public class UserSpringDataService implements UserService {
 
     @Override
     public Optional<User> save(User user) {
+        Optional<User> rsl = Optional.empty();
         try {
-            usersRep.save(user);
-            return Optional.of(user);
+            rsl = Optional.of(usersRep.save(user));
+            return rsl;
         } catch (Exception e) {
             e.printStackTrace();
-            return Optional.empty();
+            return rsl;
+
         }
 
     }
