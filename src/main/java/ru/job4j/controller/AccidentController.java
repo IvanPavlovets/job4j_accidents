@@ -74,7 +74,7 @@ public class AccidentController {
      * @param model
      * @return String
      */
-    @GetMapping("/formEditAccident")
+    @GetMapping("/editAccident")
     public String viewEditAccident(@RequestParam("id") int id, Model model) {
         model.addAttribute("user",
                 SecurityContextHolder.getContext().getAuthentication().getPrincipal());
