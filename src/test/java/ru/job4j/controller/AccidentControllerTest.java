@@ -17,10 +17,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import ru.job4j.Main;
 import ru.job4j.model.Accident;
 import ru.job4j.service.springdata.AccidentSpringDataService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.Optional;
-
+@Transactional
 @SpringBootTest(classes = Main.class)
 @AutoConfigureMockMvc
 public class AccidentControllerTest {
